@@ -15,13 +15,12 @@ class IndividualList extends Component {
   render() {
     const { individuals, onSelect, selectedGeneId } = this.props
     return (
-      <List className='height-auto'>
-        <Subheader>Individuals</Subheader>
-        <Divider inset={false} />
-        <div style={{
-          height: 'calc(100% - 48px)',
-          overflow: 'scroll'
-        }}>
+      <List className='container-column' style={{padding: 0}}>
+        <div>
+          <Subheader>Individuals</Subheader>
+          <Divider inset={false} />
+        </div>
+        <div className="scroll-y">
           {individuals.map((individual, i) =>
             <div key={i}>
               <IndividualItem

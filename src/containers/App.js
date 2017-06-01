@@ -29,7 +29,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      mode: 'config',
+      mode: 'run',
       config: defaultConfig,
       selectedIndividual: null,
       selectedItem: null,
@@ -87,44 +87,46 @@ class App extends Component {
     const { population, generation, ga, evolve } = this.props
     const { selectedIndividual, selectedItem } = this.state
     return (
-      <div className="height-auto">
+      <div className="container-column full-height">
 
-        <Toolbar>
-          <ToolbarGroup firstChild={true}>
-            <RaisedButton
-              icon={
-                <FontIcon className="material-icons">
-                  {!!this.timer ? "pause" : "play_arrow"}
-                </FontIcon>
-              }
-              onClick={() => this.handleClickPlay()}/>
-            <RaisedButton
-              icon={
-                <FontIcon className="material-icons">
-                  skip_next
-                </FontIcon>
-              }
-              style={{marginLeft: 0}}
-              onClick={() => evolve()}/>
-            <ToolbarTitle
-              text={"Generation: " + generation }
-              style={{marginLeft: "20px", width: '160px'}}
-            />
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <RaisedButton
-              label="RESET"
-              onClick={() => this.handleChangeToConfig()}/>
-          </ToolbarGroup>
-        </Toolbar>
+        <div>
+          <Toolbar>
+            <ToolbarGroup firstChild={true}>
+              <RaisedButton
+                icon={
+                  <FontIcon className="material-icons">
+                    {!!this.timer ? "pause" : "play_arrow"}
+                  </FontIcon>
+                }
+                onClick={() => this.handleClickPlay()}/>
+              <RaisedButton
+                icon={
+                  <FontIcon className="material-icons">
+                    skip_next
+                  </FontIcon>
+                }
+                style={{marginLeft: 0}}
+                onClick={() => evolve()}/>
+              <ToolbarTitle
+                text={"Generation: " + generation }
+                style={{marginLeft: "20px", width: '160px'}}
+              />
+            </ToolbarGroup>
+            <ToolbarGroup>
+              <RaisedButton
+                label="RESET"
+                onClick={() => this.handleChangeToConfig()}/>
+            </ToolbarGroup>
+          </Toolbar>
+        </div>
 
-        <div className="clearfix" style={{height: 'calc(100% - 56px)'}}>
-          <div className="height-auto" style={{width: '50%', float: 'left'}}>
+        <div className="flex-full-height container" >
+          <div className="column container-column">
             <KnapsackView knapsack={ga.knapsack}
               onSelect={(item) => this.handleSelectItem(item)}
               selection={selectedIndividual ? selectedIndividual.genes : null} />
           </div>
-          <div className="height-auto" style={{width: '50%', float: 'left'}}>
+          <div className="column container-column">
             <IndividualList individuals={population.individuals}
               onSelect={(selected) => this.handleSelectIndividual(selected)}
               selectedGeneId={selectedItem && selectedItem.id} />
